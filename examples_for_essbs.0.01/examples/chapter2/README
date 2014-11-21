@@ -1,0 +1,22 @@
+1.安裝指令：
+sudo apt-get install gcc-arm-linux-gnueabi
+
+2.現在交叉編譯器已經安裝完成囉!!
+
+最後，由於這個版本的交叉編譯器預設會將程式碼編譯成 armv6 的組語和機械碼
+因此，在編譯的指令上我們必須要稍作修改（跟書本上鎖說的不一樣），以第二章的第一個範例程式為例
+C語言的編譯指令為：
+arm-linux-gnueabi-gcc -O2 -g -march=armv4 -c helloworld.c
+
+（-amrch=armv4 的意思是說，我們要將程式編譯成armv4架構的elf格式文件）
+組語（中國大陸稱為匯編）組譯指令為：
+arm-linux-gnueabi-gcc -O2 -g -march=armv4 -c helloworld.s
+
+鍊結指令：
+arm-linux-gnueabi-ld -e helloworld -Ttext 0x0 helloworld.o -o helloworld
+
+機械碼抽出指令：
+arm-linux-gnueabi-objcopy -O binary helloworld helloworld.bin
+
+# run
+skyeye -e helloworld -c skyeye.conf
